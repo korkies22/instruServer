@@ -12,6 +12,7 @@ io.on('connection', function(socket) {
   console.log('Alguien se ha conectado con Sockets')
 
   socket.on('new-message', function(data) {
+      console.log('Llego '+ data)
     socket.broadcast.emit(data)
   })
 })
