@@ -11,9 +11,9 @@ app.use(express.static(path.join(__dirname, 'public')))
 io.on('connection', function(socket) {
   console.log('Alguien se ha conectado con Sockets')
 
-  socket.on('new-message', function(data) {
+  socket.on('message', function(data) {
       console.log('Llego '+ data)
-    socket.broadcast.emit(data)
+    socket.broadcast.emit('message',data)
   })
 })
 
