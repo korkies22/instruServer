@@ -2,13 +2,14 @@ var express = require('express')
 var app = express()
 var server = require('http').Server(app)
 var io = require('socket.io')(server, {'transports': ['websocket', 'polling']});
+const WebSocket = require('ws');
 const path = require('path')
 const PORT = process.env.PORT || 5000
 
 app.use(require('cors')())
 app.use(express.static(path.join(__dirname, 'public')))
 
-const wss = new SocketServer({ app });
+const wss = new WebSocket.Server({ server });
 
 wss.on('connection', (ws) => {
   console.log('Arduino connected');
