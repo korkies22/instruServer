@@ -28,7 +28,7 @@ io.on('connection', function(socket) {
 })
 
 wss.on('message', function incoming(data) {
-  console.log(data);
+  	console.log(data);
 	io.sockets.emit('message',data)
 });
 
