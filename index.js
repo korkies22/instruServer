@@ -1,8 +1,9 @@
-var express = require('express')
-var app = express()
-var server = require('http').Server(app)
-const SocketServer = require('ws').Server;
-const path = require('path')
+var express = require('express');
+var app = express();
+var server = require('http').Server(app);
+const WebSocket = require('ws');
+const SocketServer = WebSocket.Server;
+const path = require('path');
 const PORT = process.env.PORT || 5000
 
 app.use(require('cors')())
@@ -12,13 +13,19 @@ const wss = new SocketServer({ server });
 
 wss.on('connection', (ws) => {
   console.log('Someone connected');
+  
+  ws.on('message', function incoming(data) {
+    // Broadcast to everyone else.
+    wss.clients.forEach(function each(client) {
+      if (client !== ws && client.readyState === WebSocket.OPEN) {
+        client.send(data);
+      }
+    });
+  });
+  
   ws.on('close', () => console.log('Someone disconnected'));
 });
 
 
-wss.on('message', function incoming(data) {
-    console.log(data);
-    wss.send(data);
-});
 
 server.listen(PORT, () => console.log(`Listening on ${PORT}`))
