@@ -9,7 +9,7 @@ const PORT = process.env.PORT || 5000
 app.use(require('cors')())
 app.use(express.static(path.join(__dirname, 'public')))
 
-const wss = new WebSocket.Server({ server });
+const wss = new WebSocket.Server({ app });
 
 wss.on('connection', (ws) => {
   console.log('Arduino connected');
