@@ -4,7 +4,7 @@ var server = require('http').Server(app)
 var io = require('socket.io')(server, {'transports': ['websocket', 'polling']});
 const SocketServer = require('ws').Server;
 const path = require('path')
-const PORT = 80
+const PORT = 5000
 
 app.use(require('cors')())
 app.use(express.static(path.join(__dirname, 'public')))
