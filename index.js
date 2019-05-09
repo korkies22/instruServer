@@ -19,7 +19,10 @@ wss.on('connection', (ws) => {
     wss.clients.forEach(function each(client) {
       if (client !== ws && client.readyState === WebSocket.OPEN) {
         console.log(data);
-        client.send(data);
+        let dataT= data.split("\n");
+        for (let valueT of dataT){
+          client.send(valueT);
+        }
       }
     });
   });
